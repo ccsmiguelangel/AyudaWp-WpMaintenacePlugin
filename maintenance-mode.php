@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name:       Maintenance Mode
  * Description:       Basic Maintenance Mode.
@@ -13,9 +14,11 @@
  */
 
 
-function wpr_maintenace_mode() {
-  if ( !current_user_can( 'edit_themes' ) || !is_user_logged_in() ) {
-      die('Estamos de pruebas, no tardes en volver que enseguida terminamos.');
+function wp_maintenance_mode()
+{
+  if (!current_user_can('edit_posts') || !is_user_logged_in() || is_user_admin()
+  ) {
+    wp_die('<h1>Under Maintenance</h1><br />Website under planned maintenance. Please check back later.');
   }
 }
-add_action('get_header', 'wpr_maintenace_mode');
+add_action('get_header', 'wp_maintenance_mode');
